@@ -3,6 +3,8 @@ package ElectricityBillingSystem;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,7 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ActionListener {
+	
+	//declairing buttons globally because if  it would be in the constructor
+	//it can not be called from another function like actionperformer
+	JButton login,signup,cancel;
+	
 	
 	Login(){
 		super("login page");
@@ -53,21 +60,27 @@ public class Login extends JFrame {
 		//login button
 		ImageIcon i1= new ImageIcon(getClass().getResource("login.png"));
 		Image i2=i1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT);
-		JButton login=new JButton("log in",new ImageIcon(i2));
+		 login=new JButton("log in",new ImageIcon(i2));
 		login.setBounds(350, 160, 100, 20);
+		//adding action listner to login button
+		login.addActionListener(this);
 		add(login);
 		
 		//cancel button=>
 		ImageIcon i3=new ImageIcon(getClass().getResource("cancel.jpg"));
 		Image i4=i3.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT);
-		JButton cancel = new JButton("cancel", new ImageIcon(i4));
+		 cancel = new JButton("cancel", new ImageIcon(i4));
 		cancel.setBounds(470,160,100,20);
+		//adding action listner to cancel button
+		cancel.addActionListener(this);
 		add(cancel);
 		
 		//signup button
 		ImageIcon i5=new ImageIcon(getClass().getResource("signup.png"));
 		Image i6=i5.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT);
-		JButton signup = new JButton("signup",new ImageIcon(i6));
+		 signup = new JButton("signup",new ImageIcon(i6));
+		//adding action listner to signup button
+		signup.addActionListener(this);
 		signup.setBounds(400,200,100,20);
 		add(signup);
 		
@@ -86,6 +99,22 @@ public class Login extends JFrame {
 		
 		
 		new Login();
+	}
+
+	
+	// giving action to all button
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==login) {
+			
+		}
+		else if(e.getSource()==signup) {
+			new Signup();
+		}
+		else if(e.getSource()==cancel) {
+			setVisible(false);
+		}
 	}
 
 }
