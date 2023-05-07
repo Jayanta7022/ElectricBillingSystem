@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -21,6 +22,8 @@ public class Signup extends JFrame implements ActionListener {
 	//declairing buttons globally because if  it would be in the constructor
 		//it can not be called from another function like actionperformer
 	JButton Create,Back;
+	Choice accountType;
+	JTextField meterNo,userName,Name,password;
 	
 	 public Signup() {
 		 //frame draw
@@ -46,7 +49,7 @@ public class Signup extends JFrame implements ActionListener {
 		
 		//making to select admin or users
 		
-		Choice accountType= new Choice();
+		 accountType= new Choice();
 		accountType.add("Admin");
 		accountType.add("Users");
 		accountType.setBounds(230, 50, 150, 20);
@@ -61,7 +64,7 @@ public class Signup extends JFrame implements ActionListener {
 		
 		
 		//making text box for meterno
-		JTextField meterNo=new JTextField();
+		meterNo=new JTextField();
 		meterNo.setBounds(230, 90, 150, 20);
 		panel.add(meterNo);
 		
@@ -75,13 +78,13 @@ public class Signup extends JFrame implements ActionListener {
 				
 				
 		//making text box for username
-		JTextField userName=new JTextField();
+		 userName=new JTextField();
 		userName.setBounds(230, 130, 150, 20);
 		panel.add(userName);
 		
 		
 		//making username no label
-		JLabel lblName = new JLabel("Meter No");
+		JLabel lblName = new JLabel("Name");
 		lblName.setBounds(75,170 , 145,20 );
 		lblName.setForeground(Color.GRAY);
 		lblName.setFont(new Font("Tahoma",Font.BOLD,14));
@@ -89,7 +92,7 @@ public class Signup extends JFrame implements ActionListener {
 						
 						
 		//making text box for username
-		JTextField Name=new JTextField();
+		 Name=new JTextField();
 		Name.setBounds(230, 170, 150, 20);
 		panel.add(Name);
 				
@@ -105,7 +108,7 @@ public class Signup extends JFrame implements ActionListener {
 						
 						
 		//making text box for password
-		JTextField password=new JTextField();
+		password=new JTextField();
 		password.setBounds(230, 210, 150, 20);
 		panel.add(password);
 		
@@ -149,8 +152,32 @@ public class Signup extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		// code for entry in database
 		if(e.getSource()==Create) {
+			String aType=accountType.getSelectedItem();
+			String sUserName= userName.getText();
+			String sName= Name.getText();
+			String sPassword= password.getText();
+			String sMeterNo= meterNo.getText();
+			
+			//connection with data base
+			try {
+				Conn c= new Conn();
+				String query= "insert into login values( ' " +sUserName+" ',  ' " +sMeterNo+" ',    ' " +sName+ " ',  ' " +sPassword+" ',  ' " +aType+" ' )";
+				
+				// executing query 
+				c.s.executeUpdate(query);
+				
+				// showing success
+				
+				JOptionPane.showMessageDialog(null, "Account Created Successfully");
+				
+				// changing tab to login
+				setVisible(false);
+				new Login();
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 			
 		}
 		else if(e.getSource()==Back) {
