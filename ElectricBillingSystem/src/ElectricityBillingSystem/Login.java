@@ -5,18 +5,23 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import java.sql.ResultSet;
 
 public class Login extends JFrame implements ActionListener {
 	
 	//declairing buttons globally because if  it would be in the constructor
 	//it can not be called from another function like actionperformer
 	JButton login,signup,cancel;
+	JTextField userName, password;
+	Choice  loginAs;
 	
 	
 	Login(){
@@ -25,12 +30,12 @@ public class Login extends JFrame implements ActionListener {
 		
 		setLayout(null);
 		//lebel of user name=>
-		JLabel lbluserName= new JLabel("username");
+		JLabel lbluserName= new JLabel("Username");
 		lbluserName.setBounds(300, 20, 100, 20);
 		add(lbluserName);
 		
 		//textfeild of username=>
-		JTextField userName=new JTextField();
+		 userName=new JTextField();
 		userName.setBounds(400,20,200,20);
 		add(userName);
 		
@@ -39,19 +44,19 @@ public class Login extends JFrame implements ActionListener {
 		lblpassword.setBounds(300, 60, 100, 20);
 		add(lblpassword);
 		
-		//textfeild of password=>
-		JTextField password=new JTextField();
+		//textFeild of password=>
+		 password=new JTextField();
 		password.setBounds(400,60,200,20);
 		add(password);
 		
 		
 		//label of login as=>
-		JLabel lblLogInAs= new JLabel("logInAs");
+		JLabel lblLogInAs= new JLabel("log In As");
 		lblLogInAs.setBounds(300, 100, 100, 20);
 		add(lblLogInAs);
 		
 		//dropdown of login as
-		Choice loginAs= new Choice();
+		 loginAs= new Choice();
 		loginAs.add("Admin");
 		loginAs.add("User");
 		loginAs.setBounds(400,100,200,20);
@@ -107,7 +112,29 @@ public class Login extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==login) {
+			String sUsername= userName.getText();
+			String sPassword= password.getText();
+			String sUser=loginAs.getSelectedItem();
 			
+			try {
+				Conn c= new Conn();
+				String query="select * from login where username=' "+sUsername+" ' and password=' "+sPassword+" ' and users = ' "+sUser+" '  ";
+				java.sql.ResultSet rs= c.s.executeQuery(query);
+				 //System.out.println(rs);
+				 
+				 //check result is null or not
+				 if(rs.next()) {
+					 setVisible(false);
+					 new Project();
+				 }else {
+					 JOptionPane.showMessageDialog(null, "invalid login");
+					 userName.setText("");
+					 password.setText("");
+				 }
+			}catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
 		}
 		else if(e.getSource()==signup) {
 			new Signup();

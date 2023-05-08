@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import java.sql.*;
 
 public class Signup extends JFrame implements ActionListener {
 	
@@ -56,7 +57,7 @@ public class Signup extends JFrame implements ActionListener {
 		panel.add(accountType);
 		
 		//making meter no label
-		JLabel lblMeterNo = new JLabel("User Name");
+		JLabel lblMeterNo = new JLabel("Meter No");
 		lblMeterNo.setBounds(75,90 , 145,20 );
 		lblMeterNo.setForeground(Color.GRAY);
 		lblMeterNo.setFont(new Font("Tahoma",Font.BOLD,14));
@@ -70,7 +71,7 @@ public class Signup extends JFrame implements ActionListener {
 		
 		
 		//making username no label
-		JLabel lblUserName = new JLabel("Meter No");
+		JLabel lblUserName = new JLabel("User Name");
 		lblUserName.setBounds(75,130 , 145,20 );
 		lblUserName.setForeground(Color.GRAY);
 		lblUserName.setFont(new Font("Tahoma",Font.BOLD,14));
@@ -159,11 +160,13 @@ public class Signup extends JFrame implements ActionListener {
 			String sName= Name.getText();
 			String sPassword= password.getText();
 			String sMeterNo= meterNo.getText();
+			System.out.println(sUserName);
+			System.out.println(sMeterNo);
 			
 			//connection with data base
 			try {
 				Conn c= new Conn();
-				String query= "insert into login values( ' " +sUserName+" ',  ' " +sMeterNo+" ',    ' " +sName+ " ',  ' " +sPassword+" ',  ' " +aType+" ' )";
+				String query= "insert into login(username,meter_no,name,password,users) VALUES( ' " +sUserName+" ',  ' " +sMeterNo+" ',    ' " +sName+ " ',  ' " +sPassword+" ',  ' " +aType+" ' )";
 				
 				// executing query 
 				c.s.executeUpdate(query);
