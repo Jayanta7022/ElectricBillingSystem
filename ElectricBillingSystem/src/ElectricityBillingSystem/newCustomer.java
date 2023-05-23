@@ -7,7 +7,7 @@ import java.awt.Image;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;	
+import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,7 +33,7 @@ public class newCustomer extends JFrame implements ActionListener{
 		
 		// heading 
 		JLabel heading = new JLabel("New Customer");
-		heading.setBounds(280, 10, 250, 25);
+		heading.setBounds(200, 10, 250, 25);
 		heading.setFont(new Font("Tahoma",Font.PLAIN,24));
 		p.add(heading);
 		

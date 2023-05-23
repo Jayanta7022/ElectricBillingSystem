@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -15,7 +16,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-public class Project extends JFrame{
+public class Project extends JFrame implements ActionListener{
+	JMenuItem Calculatebill;
 	
 	Project(){
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -38,10 +40,10 @@ public class Project extends JFrame{
 		ImageIcon icon1= new ImageIcon(getClass().getResource("icon1.png"));
 		Image image1=icon1.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		newcustomer.setIcon(new ImageIcon(image1));
+		newcustomer.addActionListener(this);
 		newcustomer.setMnemonic('D');
 		newcustomer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D,ActionEvent.CTRL_MASK));
 		master.add(newcustomer);
-		
 		
 		//customer details menu item create
 		JMenuItem customerdetails= new JMenuItem(" Customer Details");
@@ -50,6 +52,7 @@ public class Project extends JFrame{
 		ImageIcon icon2= new ImageIcon(getClass().getResource("icon2.png"));
 		Image image2=icon2.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		customerdetails.setIcon(new ImageIcon(image2));
+		customerdetails.addActionListener(this);
 		customerdetails.setMnemonic('M');
 		customerdetails.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,ActionEvent.CTRL_MASK));
 		master.add(customerdetails);
@@ -64,6 +67,7 @@ public class Project extends JFrame{
 		ImageIcon icon3= new ImageIcon(getClass().getResource("icon3.png"));
 		Image image3=icon3.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		 Depositdetail.setIcon(new ImageIcon(image3));
+		 Depositdetail.addActionListener(this);
 		 Depositdetail.setMnemonic('A');
 		 Depositdetail.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,ActionEvent.CTRL_MASK));
 		master.add( Depositdetail);
@@ -71,12 +75,13 @@ public class Project extends JFrame{
 		
 		//Calculate Bill menuitem create
 		
-		JMenuItem  Calculatebill= new JMenuItem(" Calculate Bill");
+		 Calculatebill= new JMenuItem(" Calculate Bill");
 		Calculatebill.setFont(new Font("monospaced", Font.PLAIN,12));
 		Calculatebill.setBackground(Color.WHITE);
 		ImageIcon icon4= new ImageIcon(getClass().getResource("icon4.png"));
 		Image image4=icon4.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		Calculatebill.setIcon(new ImageIcon(image4));
+		Calculatebill.addActionListener(this);
 		Calculatebill.setMnemonic('B');
 		Calculatebill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,ActionEvent.CTRL_MASK));
 		master.add( Calculatebill);
@@ -215,6 +220,23 @@ public class Project extends JFrame{
 		setLayout(new FlowLayout());
 		
 		setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent ae) {
+		String msg=ae.getActionCommand();
+		if(msg.equals("New Customer")) {
+			new newCustomer();
+		}
+		else if(msg.equals("Customer Details")) {
+			
+		}
+		else if(msg.equals(" Deposit Details")) {
+			
+		}
+		else if(ae.getSource()==Calculatebill) {
+			//System.out.println("true");
+			new CalculateBill();
+		}
 	}
 
 	public static void main(String[] args) {
