@@ -6,10 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Jayanta/Downloads/mysql-connector-java-8.0.28.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Jayanta/Downloads/mysql-connector-java-8.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jayanta/Downloads/rs2xml.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

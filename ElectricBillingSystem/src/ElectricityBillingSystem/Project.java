@@ -18,6 +18,7 @@ import javax.swing.KeyStroke;
 
 public class Project extends JFrame implements ActionListener{
 	JMenuItem Calculatebill;
+	JMenuItem customerdetails;
 	
 	Project(){
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -46,7 +47,7 @@ public class Project extends JFrame implements ActionListener{
 		master.add(newcustomer);
 		
 		//customer details menu item create
-		JMenuItem customerdetails= new JMenuItem(" Customer Details");
+		 customerdetails= new JMenuItem(" Customer Details");
 		customerdetails.setFont(new Font("monospaced", Font.PLAIN,12));
 		customerdetails.setBackground(Color.WHITE);
 		ImageIcon icon2= new ImageIcon(getClass().getResource("icon2.png"));
@@ -227,11 +228,11 @@ public class Project extends JFrame implements ActionListener{
 		if(msg.equals("New Customer")) {
 			new newCustomer();
 		}
-		else if(msg.equals("Customer Details")) {
-			
+		else if(ae.getSource()==customerdetails) {
+			new CustomerDetails();
 		}
 		else if(msg.equals(" Deposit Details")) {
-			
+			new DepositDetails();
 		}
 		else if(ae.getSource()==Calculatebill) {
 			//System.out.println("true");
