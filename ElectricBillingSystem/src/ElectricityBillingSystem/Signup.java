@@ -6,6 +6,10 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -56,17 +60,22 @@ public class Signup extends JFrame implements ActionListener {
 		accountType.setBounds(230, 50, 150, 20);
 		panel.add(accountType);
 		
+		
 		//making meter no label
 		JLabel lblMeterNo = new JLabel("Meter No");
 		lblMeterNo.setBounds(75,90 , 145,20 );
 		lblMeterNo.setForeground(Color.GRAY);
 		lblMeterNo.setFont(new Font("Tahoma",Font.BOLD,14));
+		lblMeterNo.setVisible(false);
 		panel.add(lblMeterNo);
+		
+		
 		
 		
 		//making text box for meterno
 		meterNo=new JTextField();
 		meterNo.setBounds(230, 90, 150, 20);
+		meterNo.setVisible(false);
 		panel.add(meterNo);
 		
 		
@@ -95,10 +104,48 @@ public class Signup extends JFrame implements ActionListener {
 		//making text box for username
 		 Name=new JTextField();
 		Name.setBounds(230, 170, 150, 20);
+		Name.setEditable(false);
 		panel.add(Name);
+		
+		
+		 meterNo.addFocusListener(new FocusListener() {
+			 @Override
+			 public void focusGained(FocusEvent fe) {
+				 
+			 }
+			 @Override
+			 public void focusLost(FocusEvent fe) {
+				 try {
+					 Conn c=new Conn();
+					 ResultSet rs = c.s.executeQuery("select * from login where meter_no=' "+meterNo.getText()+" '");
+					 while(rs.next()) {
+						 Name.setText(rs.getString("name"));
+					 }
+				 }
+				 catch(Exception e){
+					 e.printStackTrace();
+				 }
+			 }
+		 });
+		 
 				
 		
-		
+		 accountType.addItemListener(new ItemListener() {
+			 
+			 public void itemStateChanged(ItemEvent ae) {
+				 String type=accountType.getSelectedItem();
+				 if(type.equals("Users")) {
+					 lblMeterNo.setVisible(true);
+					 meterNo.setVisible(true);
+					 Name.setEditable(false);
+				 }
+				 else {
+					 lblMeterNo.setVisible(false);
+					 meterNo.setVisible(false);
+					 Name.setEditable(true);
+				 }
+			 }
+		 });
 		
 		//making password no label
 		JLabel lblpassword = new JLabel("Password");
@@ -112,6 +159,9 @@ public class Signup extends JFrame implements ActionListener {
 		password=new JTextField();
 		password.setBounds(230, 210, 150, 20);
 		panel.add(password);
+		
+		
+		
 		
 		
 		//making create button
@@ -143,6 +193,7 @@ public class Signup extends JFrame implements ActionListener {
 		
 		
 		setVisible(true);
+		  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public static void main(String[] args) {
@@ -160,14 +211,19 @@ public class Signup extends JFrame implements ActionListener {
 			String sName= Name.getText();
 			String sPassword= password.getText();
 			String sMeterNo= meterNo.getText();
-			System.out.println(sUserName);
-			System.out.println(sMeterNo);
+			//System.out.println(sUserName);
+		//	System.out.println(sMeterNo);
 			
 			//connection with data base
 			try {
 				Conn c= new Conn();
-				String query= "insert into login(username,meter_no,name,password,users) VALUES( ' " +sUserName+" ',  ' " +sMeterNo+" ',    ' " +sName+ " ',  ' " +sPassword+" ',  ' " +aType+" ' )";
-				
+				String query= null;
+				if(aType.equals("Admin")) {
+						query="insert into login(username,meter_no,name,password,users) VALUES( ' " +sUserName+" ',  ' " +sMeterNo+" ',    ' " +sName+ " ',  ' " +sPassword+" ',  ' " +aType+" ' )";
+				}
+				else {
+					query="update login set username=' "+sUserName+" ',password=' "+sPassword+" ',users=' "+aType+" ' where meter_no=' "+sMeterNo+" ' ";
+				}
 				// executing query 
 				c.s.executeUpdate(query);
 				

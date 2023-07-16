@@ -17,10 +17,12 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 public class Project extends JFrame implements ActionListener{
-	JMenuItem Calculatebill;
-	JMenuItem customerdetails;
-	
-	Project(){
+	String aType,meter;
+	JMenuItem  billdetails,notepad,calculator,exit,Calculatebill,customerdetails,viewinfo,updateinfo,paybill,  genbill;
+	Project(String aType,String meter){
+		this.aType=aType;
+		this.meter=meter;
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		ImageIcon i1= new ImageIcon(getClass().getResource("elect1.jpg"));
@@ -33,7 +35,7 @@ public class Project extends JFrame implements ActionListener{
 		
 		JMenu master = new JMenu("Master");
 		master.setForeground(Color.blue);
-		mb.add(master);
+		
 		// new customer menu item create
 		JMenuItem newcustomer= new JMenuItem("New Customer");
 		newcustomer.setFont(new Font("monospaced", Font.PLAIN,12));
@@ -91,11 +93,11 @@ public class Project extends JFrame implements ActionListener{
 		//second menu info create
 		JMenu info = new JMenu("Info");
 		info.setForeground(Color.red);
-		mb.add(info);
+		
 		
 		
 		// update info menuitem create
-		JMenuItem  updateinfo= new JMenuItem(" Update Information");
+	    updateinfo= new JMenuItem(" Update Information");
 		updateinfo.setFont(new Font("monospaced", Font.PLAIN,12));
 		updateinfo.setBackground(Color.WHITE);
 		ImageIcon icon5= new ImageIcon(getClass().getResource("icon5.png"));
@@ -103,17 +105,19 @@ public class Project extends JFrame implements ActionListener{
 		updateinfo.setIcon(new ImageIcon(image5));
 		updateinfo.setMnemonic('P');
 		updateinfo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,ActionEvent.CTRL_MASK));
+		updateinfo.addActionListener(this);
 		info.add( updateinfo);
 		
 		
 		//view information menuitem create
-		JMenuItem  viewinfo= new JMenuItem(" view Information");
+		viewinfo= new JMenuItem(" view Information");
 		viewinfo.setFont(new Font("monospaced", Font.PLAIN,12));
 		viewinfo.setBackground(Color.WHITE);
 		ImageIcon icon6= new ImageIcon(getClass().getResource("icon6.png"));
 		Image image6=icon6.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		viewinfo.setIcon(new ImageIcon(image6));
 		viewinfo.setMnemonic('L');
+		viewinfo.addActionListener(this);
 		viewinfo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,ActionEvent.CTRL_MASK));
 		info.add( viewinfo);
 		
@@ -121,11 +125,11 @@ public class Project extends JFrame implements ActionListener{
 		//menu for user create
 		JMenu user = new JMenu("User");
 		user.setForeground(Color.blue);
-		mb.add(user);
+		
 		
 		
 		// paybill menuitem create
-				JMenuItem  paybill= new JMenuItem(" Pay Bill");
+				  paybill= new JMenuItem(" Pay Bill");
 				paybill.setFont(new Font("monospaced", Font.PLAIN,12));
 				paybill.setBackground(Color.WHITE);
 				ImageIcon icon7= new ImageIcon(getClass().getResource("icon7.png"));
@@ -133,11 +137,12 @@ public class Project extends JFrame implements ActionListener{
 				paybill.setIcon(new ImageIcon(image7));
 				paybill.setMnemonic('R');
 				paybill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,ActionEvent.CTRL_MASK));
+				paybill.addActionListener(this);
 				user.add( paybill);
 				
 				
 				//bill details menuitem create
-				JMenuItem  billdetails= new JMenuItem(" Bill Details");
+				  billdetails= new JMenuItem(" Bill Details");
 				 billdetails.setFont(new Font("monospaced", Font.PLAIN,12));
 				 billdetails.setBackground(Color.WHITE);
 				ImageIcon icon8= new ImageIcon(getClass().getResource("icon8.png"));
@@ -145,16 +150,17 @@ public class Project extends JFrame implements ActionListener{
 				 billdetails.setIcon(new ImageIcon(image8));
 				 billdetails.setMnemonic('S');
 				 billdetails.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,ActionEvent.CTRL_MASK));
+				 billdetails.addActionListener(this);
 				user.add(  billdetails);
 				
 				//report menu create
 				JMenu report = new JMenu("Report");
 				report.setForeground(Color.RED);
-				mb.add(report);
+				
 				
 				
 				// generatebill menu item create
-						JMenuItem  genbill= new JMenuItem(" Generate Bill");
+						  genbill= new JMenuItem(" Generate Bill");
 						 genbill.setFont(new Font("monospaced", Font.PLAIN,12));
 						 genbill.setBackground(Color.WHITE);
 						ImageIcon icon9= new ImageIcon(getClass().getResource("icon9.png"));
@@ -162,19 +168,20 @@ public class Project extends JFrame implements ActionListener{
 						 genbill.setIcon(new ImageIcon(image9));
 						 genbill.setMnemonic('T');
 						 genbill.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,ActionEvent.CTRL_MASK));
-						report.add( genbill);
+						 report.add( genbill);
+						 genbill.addActionListener(this);
 						
 						
 						
 						//utility menu create
 						JMenu utility = new JMenu("Utility");
 						utility.setForeground(Color.blue);
-						mb.add(utility);
+						
 						
 						
 						
 						//notepad menu item create
-						JMenuItem  notepad= new JMenuItem("Notepad");
+						  notepad= new JMenuItem("Notepad");
 						notepad.setFont(new Font("monospaced", Font.PLAIN,12));
 						notepad.setBackground(Color.WHITE);
 						ImageIcon icon10= new ImageIcon(getClass().getResource("icon12.png"));
@@ -183,10 +190,11 @@ public class Project extends JFrame implements ActionListener{
 						notepad.setMnemonic('N');
 						notepad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,ActionEvent.CTRL_MASK));
 						utility.add( notepad);
+						notepad.addActionListener(this);
 						
 						
 						//calculator menu item added
-						JMenuItem  calculator= new JMenuItem("Calculator");
+						 calculator= new JMenuItem("Calculator");
 						calculator.setFont(new Font("monospaced", Font.PLAIN,12));
 						calculator.setBackground(Color.WHITE);
 						ImageIcon icon11= new ImageIcon(getClass().getResource("icon9.png"));
@@ -195,16 +203,17 @@ public class Project extends JFrame implements ActionListener{
 						calculator.setMnemonic('U');
 						calculator.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U,ActionEvent.CTRL_MASK));
 						utility.add( calculator);
+						calculator.addActionListener(this);
 						
 				
 						
 						//exit manu add
 						JMenu mexit = new JMenu("Exit");
 						mexit.setForeground(Color.red);
-						mb.add(mexit);
+						
 						
 						//exit menu item add
-						JMenuItem  exit= new JMenuItem("exit");
+						  exit= new JMenuItem("exit");
 						exit.setFont(new Font("monospaced", Font.PLAIN,12));
 						exit.setBackground(Color.WHITE);
 						ImageIcon icon12= new ImageIcon(getClass().getResource("icon11.png"));
@@ -213,6 +222,18 @@ public class Project extends JFrame implements ActionListener{
 						exit.setMnemonic('U');
 						exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U,ActionEvent.CTRL_MASK));
 						mexit.add( exit);
+						exit.addActionListener(this);
+						
+						if(aType.equals("Admin")) {
+							mb.add(master);
+						}
+						else {
+							mb.add(info);
+							mb.add(user);
+							mb.add(report);
+						}
+						mb.add(utility);
+						mb.add(mexit);
 						
 						
 		
@@ -221,6 +242,7 @@ public class Project extends JFrame implements ActionListener{
 		setLayout(new FlowLayout());
 		
 		setVisible(true);
+		  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void actionPerformed(ActionEvent ae) {
@@ -238,10 +260,50 @@ public class Project extends JFrame implements ActionListener{
 			//System.out.println("true");
 			new CalculateBill();
 		}
+		else if(ae.getSource()==viewinfo) {
+			new ViewInformation(meter);
+		}
+		
+		
+		else if(ae.getSource()==updateinfo) {
+			new updateInformation(meter);
+		}
+		
+		else if(ae.getSource()==billdetails) {
+			new billDetails(meter);
+		}
+		
+		else if(ae.getSource()==notepad) {
+			try {
+				Runtime.getRuntime().exec("notepad.exe");
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		else if(ae.getSource()==calculator) {
+			try {
+				Runtime.getRuntime().exec("calc.exe");
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		else if(ae.getSource()==exit) {
+			setVisible(false);
+			new Login();
+		}
+		else if(ae.getSource()==paybill) {
+			new payBill(meter);
+		}
+		else if(ae.getSource()==genbill) {
+			new generateBill(meter);
+		}
+
+		
 	}
 
 	public static void main(String[] args) {
-		new Project();
+		new Project("","");
 
 	}
 

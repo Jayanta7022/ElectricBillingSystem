@@ -58,7 +58,7 @@ public class Login extends JFrame implements ActionListener {
 		//dropdown of login as
 		 loginAs= new Choice();
 		loginAs.add("Admin");
-		loginAs.add("User");
+		loginAs.add("Users");
 		loginAs.setBounds(400,100,200,20);
 		add(loginAs);
 		
@@ -98,6 +98,7 @@ public class Login extends JFrame implements ActionListener {
 		setSize(640, 300);
 		setLocation(400, 200);
 		setVisible(true);
+		  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public static void main(String[] args) {
@@ -118,18 +119,24 @@ public class Login extends JFrame implements ActionListener {
 			
 			try {
 				Conn c= new Conn();
-				String query="select * from login where username=' "+sUsername+" ' and password=' "+sPassword+" ' and users = ' "+sUser+" '  ";
-				java.sql.ResultSet rs= c.s.executeQuery(query);
+				String query="select * from login where username=' "+sUsername+" ' and password=' "+sPassword+" ' and users = ' "+sUser+" '";
+				//select * from login where username='raj20' or 1=1 and password='3456';
+				//select * from login where username='rahul10'--
+				//rajX
+				ResultSet rs= c.s.executeQuery(query);
 				 //System.out.println(rs);
 				 
 				 //check result is null or not
+				//System.out.println(rs.next());
 				 if(rs.next()) {
+					 String meter =rs.getString("meter_no");
 					 setVisible(false);
-					 new Project();
+					 new Project(sUser,meter);
 				 }else {
 					 JOptionPane.showMessageDialog(null, "invalid login");
 					 userName.setText("");
 					 password.setText("");
+					
 				 }
 			}catch (Exception e2) {
 				// TODO: handle exception

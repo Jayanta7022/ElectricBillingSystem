@@ -144,6 +144,7 @@ public class CalculateBill extends JFrame implements ActionListener{
        
         
         setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == b1){
@@ -167,7 +168,7 @@ public class CalculateBill extends JFrame implements ActionListener{
                 }
             }catch(Exception e){}
 
-            String q = "insert into bill values('"+meter_no+"','"+month+"','"+units+"','"+total_bill+"', 'Not Paid')";
+            String q = "insert into bill values(' "+meter_no+" ','"+month+"','"+units+"','"+total_bill+"', 'Not Paid')";
 
             try{
                 Conn c1 = new Conn();

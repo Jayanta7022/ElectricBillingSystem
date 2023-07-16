@@ -35,6 +35,7 @@ public class Splash extends JFrame implements Runnable {
 		t=new Thread(this);
 		t.start();
 		setVisible(true);
+		  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	@Override
 	public void run() {

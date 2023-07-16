@@ -55,7 +55,7 @@ public class newCustomer extends JFrame implements ActionListener{
 		p.add(lblmeterNo);
 		
 		//we have to make meterno feild auto generate and no editable so we have to make that feild as a label
-		 meterNo = new JLabel(" ");
+		 meterNo = new JLabel("");
 		meterNo .setBounds(240, 120, 100, 20);
 		p.add(meterNo );
 		
